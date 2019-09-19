@@ -6,6 +6,8 @@ class MP3Importer
     @files = songs_in_dir(path)
   end
 
+  private
+
   def songs_in_dir(path)
     path += '/*.mp3'
     song_paths = Dir[path]
