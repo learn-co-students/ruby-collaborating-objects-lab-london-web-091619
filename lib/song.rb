@@ -1,6 +1,5 @@
 class Song
-  attr_accessor :artist
-  attr_reader :name
+  attr_accessor :artist, :name
 
   @@all = []
 
@@ -15,5 +14,14 @@ class Song
   def initialize(name)
     @name = name
     save
+  end
+
+  def self.new_by_filename(filename)
+    parsed_filename = MP3Importer.parse_filename(filename)
+    name = parsed_filename[:song_name]
+    artist = parsed_filename[:artist]
+    song = new(name)
+    song.artist = Artist.find_or_create_by_name(artist)
+    song
   end
 end
