@@ -3,12 +3,14 @@ class MP3Importer
 
   def initialize(path)
     @path = path
-    @files = []
+    @files = songs_in_dir(path)
+  end
 
+  def songs_in_dir(path)
     path += '/*.mp3'
     song_paths = Dir[path]
-    song_paths.each do |song_path|
-      @files << song_path[%r{(?<=.\/spec\/fixtures\/mp3s\/).*}]
+    song_paths.map do |song_path|
+      song_path[%r{(?<=.\/spec\/fixtures\/mp3s\/).*}]
     end
   end
 end
